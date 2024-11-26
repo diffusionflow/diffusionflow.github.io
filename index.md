@@ -38,7 +38,7 @@ toc:
   - name: Training
   - name: Diving deeper into samplers
   - name: SDE and ODE perspective
-  - name: Closing takaways
+  - name: Closing takeaways
 
 # Below is an example of injecting additional post-specific styles.
 # This is used in the 'Layouts' section of this post.
@@ -435,7 +435,7 @@ $$
 
 In summary, aside from training considerations and sampler selection, diffusion and Gaussian flow matching exhibit no fundamental differences.
 
-## Closing takaways
+## Closing takeaways
 
 If you've read this far, hopefully we've convinced you that diffusion models and Gaussian flow matching are equivalent. One should feel confident to use the two frameworks interchangably. We highlight that flow matching brings two new model specifications to the field:
 
