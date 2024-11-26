@@ -105,7 +105,7 @@ This is the DDIM sampler <d-cite key="song2020denoising"></d-cite>. The randomne
 
 ### Flow matching
 
-In flow Matching, we view the forward process as a linear  interpolation between the data $${\bf x}$$
+In Flow Matching, we view the forward process as a linear  interpolation between the data $${\bf x}$$
 and a noise term $$\boldsymbol \epsilon$$:
 $$
 \begin{eqnarray}
