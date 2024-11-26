@@ -6,7 +6,7 @@ on:
       - master
       - main
   workflow_dispatch: {}
-permissions
+permissions:
   id-token: write
   contents: write
 jobs:
