@@ -21,7 +21,7 @@ authors:
     url: "https://scholar.google.nl/citations?user=xxQzqVkAAAAJ&hl=nl"
   - name: Valentin De Bortoli
     url: "https://vdeborto.github.io/"
-  - name: kevin P. Murphy
+  - name: Kevin P. Murphy
     url: "https://scholar.google.com/citations?user=MxxZkEcAAAAJ&hl=en"    
   - name: Tim Salimans
     url: "https://scholar.google.nl/citations?user=w68-7AYAAAAJ&hl=en"    
