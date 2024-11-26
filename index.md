@@ -391,7 +391,7 @@ $$
 
 Assuming the interpolation is $${\bf z}_t = \alpha_t {\bf x} + \sigma_t {\boldsymbol \epsilon}$$, then $${\bf u}_t = \dot{\alpha}_t {\bf x} + \dot{\sigma}_t {\boldsymbol \epsilon}$$.
 
-The generative process is simply reversing the ODE in time. This is a specific case of <em>stochastic interpolation</em><d-cite key="liu2022flow,albergo2023stochastic"></d-cite>, in which case it can be generalized to an SDE:
+The generative process is simply reversing the ODE in time, and replacing $${\bf u}_t$$ by its conditional expectation with respect to $${\bf z}_t$$. This is a specific case of <em>stochastic interpolation</em><d-cite key="liu2022flow,albergo2023stochastic"></d-cite>, in which case it can be generalized to an SDE:
 
 $$
 \begin{equation}
