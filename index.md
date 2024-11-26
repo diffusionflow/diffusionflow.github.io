@@ -430,7 +430,7 @@ one can derive the equivalent difusion model by defining -->
 From flow matching to diffusion:
 
 $$
-f_t = \partial_t \log(\alpha_t) , \quad g_t = 2 \alpha_t \sigma_t \partial_t (\sigma_t / \alpha_t) , \quad \eta_t = \varepsilon_t / (2 \alpha_t \sigma_t \partial_t (\sigma_t / \alpha_t)) . 
+f_t = \partial_t \log(\alpha_t) , \quad g_t^2 = 2 \alpha_t \sigma_t \partial_t (\sigma_t / \alpha_t) , \quad \eta_t = \varepsilon_t / (2 \alpha_t \sigma_t \partial_t (\sigma_t / \alpha_t))^{1/2} . 
 $$
 
 In summary, aside from training considerations and sampler selection, diffusion and Gaussian flow matching exhibit no fundamental differences.
