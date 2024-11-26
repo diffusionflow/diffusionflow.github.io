@@ -2,7 +2,7 @@
 layout: distill
 title: "Diffusion Meets Flow Matching: Two Sides of the Same Coin"
 # permalink: /main/
-description: "Flow matching and diffusion models are two popular frameworks in generative modeling. Despite seeming similar, there is some confusion in the community about their exact connection. In this post we aim to clear up this confusion and show that <i>diffusion models and Gaussian flow matching are the same</i>, although different model specifications can lead to different network outputs and sampling schedules. That's great news, it means that you can use the two frameworks interchangeably."
+description: "Flow matching and diffusion models are two popular frameworks in generative modeling. Despite seeming similar, there is some confusion in the community about their exact connection. In this post, we aim to clear up this confusion and show that <i>diffusion models and Gaussian flow matching are the same</i>, although different model specifications can lead to different network outputs and sampling schedules. That's great news, it means that you can use the two frameworks interchangeably."
 date: 2025-11-26
 future: true
 htmlwidgets: true
@@ -68,7 +68,7 @@ Flow matching is gaining popularity recently, due to the simplicity of its formu
 
 As we will see, diffusion models and flow matching are *equivalent* (for the common special case that the source distribution used with flow matching corresponds to a Gaussian). So there is not a single answer to this question. In particular, we will show how to convert one formalism to another. Why does this equivalence matter? This allows you to mix and match techniques developed for the two frameworks. For example, after training a flow matching model, you can use either a stochastic or deterministic sampling method (in contrast to the common misunderstanding that flow matching is always deterministic). 
 
-We will focus on  the most commonly used flow matching formalism  <d-cite key="lipman2022flow"></d-cite>, which is closely related to <d-cite key="liu2022flow,albergo2023stochastic"></d-cite>. Our purpose is not to downweigh the importance of either framework. Both frameworks are valuable, each rooted in distinct theoretical perspectives. It is even more encouraging that they lead to the same algorithm in practice. Our goal is to help practitioners feel confident using the two frameworks interchangeably, while understanding the true degrees of freedom one has when tuning the algorithm -- regardless of what it’s called.
+We will focus on  the most commonly used flow matching formalism  <d-cite key="lipman2022flow"></d-cite>, which is closely related to <d-cite key="liu2022flow,albergo2023stochastic"></d-cite>. Our purpose is not to recommend one approach over another. Both frameworks are valuable, each rooted in distinct theoretical perspectives. It is even more encouraging that they lead to the same algorithm in practice. Our goal is to help practitioners feel confident using the two frameworks interchangeably, while understanding the true degrees of freedom one has when tuning the algorithm -- regardless of what it’s called.
 
 <!-- Our purpose is not to recommend one approach over another. Instead our goal is to explain similarities and differences between the methods, and to explain the degrees of freedom one has when tuning each algorithm. -->
 
@@ -176,7 +176,7 @@ Some other comments on the DDIM sampler:
 2. The DDIM sampler is *invariant* to a linear scaling applied to the noise schedule $$\alpha_t$$ and $$\sigma_t$$,
 as a scaling does not affect $$\tilde{\bf z}_t$$ and $$\eta_t$$. This is not true for other samplers e.g. Euler sampler of the probability flow ODE.
 
-To validate Claim 2, we present the results obtained using several noise schedules, each of which follows a flow-matching schedule ($$\alpha_t = 1-t, \sigma_t = t$$) with different scaling factors. At the left end of the slider, the scaling factor is $$1$$ which is exactly the flow matching schedule, while at the right end, the scaling factor is $$1/[(1-t)^2 + t^2]$$, which corresponds to a variance-preserving schedule (Feel free to change the slider).
+To validate Claim 2, we present the results obtained using several noise schedules, each of which follows a flow-matching schedule ($$\alpha_t = 1-t, \sigma_t = t$$) with different scaling factors. Feel free to change the slider. At the left end, the scaling factor is $$1$$ which is exactly the flow matching schedule, while at the right end, the scaling factor is $$1/[(1-t)^2 + t^2]$$, which corresponds to a variance-preserving schedule.
 We see that DDIM (and flow matching sampler) always gives the same final data samples, regardless of the scaling of the schedule. The paths bend in different ways as we are showing $${\bf z}_t$$ (but not $$\tilde{\bf z}_t$$), which is scale-dependent along the path. For the Euler sampler of the probabilty flow ODE, the scaling makes a true difference: we see that both the paths and the final samples change.
 
 
@@ -325,13 +325,13 @@ For individual samples, these updates behave quite differently: the reversed DDI
 
 The fraction of the DDIM step to undo by renoising is a hyperparameter which we are free to choose (i.e. does not have to be exact half of the DDIM step), and which has been called the level of _churn_ by <d-cite key="karras2022elucidating"></d-cite>. Interestingly, the effect of adding churn to our sampler is to diminish the effect on our final sample of our model predictions made early during sampling, and to increase the weight on later predictions. This is shown in the figure below:
 
-<div class="m-page">
+<div class="l-page">
   <iframe src="{{ 'assets/html/2025-04-28-distill-example/churn.html' | relative_url }}" frameborder='0' scrolling='no' height="600px" width="100%"></iframe>
 </div>
 
 Here we ran different samplers for 100 sampling steps using a cosine noise schedule
-and $$\hat{\bf v}$$-prediction <d-cite key="salimansprogressive"></d-cite>. Ignoring nonlinear interactions, the final sample produced by the sampler can be written as a weighted sum of predictions $$\hat{\bf v}_t$$ made during sampling and a Gaussian noise $${\bf e}$$: $${\bf z}_0 = \sum_t h_t \hat{\bf v}_t +  c {\bf e} $$. The weights $$h_t$$ of these predictions are shown on the y-axis for different diffusion times $$t$$ shown on the x-axis. DDIM results in an equal weighting of $${\bf v}$$-predictions for this setting, as shown in <d-cite key="salimansprogressive"></d-cite>,
-whereas DDPM puts more emphasis on predictions made towards the end of sampling. Also see <d-cite key="lu2022dpm"></d-cite> for analytic expressions of these weights in the $$\hat{\bf x}-$$ and $${\boldsymbol \epsilon}$$-predictions.
+and $$\hat{\bf v}$$-prediction <d-cite key="salimansprogressive"></d-cite>. Ignoring nonlinear interactions, the final sample produced by the sampler can be written as a weighted sum of predictions $$\hat{\bf v}_t$$ made during sampling and a Gaussian noise $${\bf e}$$: $${\bf z}_0 = \sum_t h_t \hat{\bf v}_t +  \sum_t c_t {\bf e} $$. The weights $$h_t$$ of these predictions are shown on the y-axis for different diffusion times $$t$$ shown on the x-axis. DDIM results in an equal weighting of $$\hat{\bf v}$$-predictions for this setting, as shown in <d-cite key="salimansprogressive"></d-cite>,
+whereas DDPM puts more emphasis on predictions made towards the end of sampling. Also see <d-cite key="lu2022dpm"></d-cite> for analytic expressions of these weights in the $$\hat{\bf x}$$- and $$\hat{\boldsymbol \epsilon}$$-predictions.
 
 
 
@@ -437,16 +437,16 @@ In summary, aside from training considerations and sampler selection, diffusion 
 
 ## Closing takeaways
 
-If you've read this far, hopefully we've convinced you that diffusion models and Gaussian flow matching are equivalent. One should feel confident to use the two frameworks interchangably. We highlight that flow matching brings two new model specifications to the field:
+If you've read this far, hopefully we've convinced you that diffusion models and Gaussian flow matching are equivalent. However, we highlight two new model specifications that flow matching brings to the field:
 
-* **Network output**: Flow matching proposes a vector field parametrization of the network output that is different from the ones used in diffusion literature. The network output can make a difference when  higher order sampler is used, related to the model curvature. It may also affect the training dynamics. 
-* **Sampling noise schedule**: Flow matching leverages a simple sampling noise schedule $$\alpha_t = 1-t$$ and $$\sigma_t = t$$, although the update rule is the same as DDIM.
+* **Network output**: Flow matching proposes a vector field parametrization of the network output that is different from the ones used in diffusion literature. The network output can make a difference when  higher-order sampler is used. It may also affect the training dynamics. 
+* **Sampling noise schedule**: Flow matching leverages a simple sampling noise schedule $$\alpha_t = 1-t$$ and $$\sigma_t = t$$, with the same update rule as DDIM.
 
-It would be interesting to investigate the importance of these two model specifications empirically in real applications.
+It would be interesting to investigate the importance of these two model specifications empirically in different real world applications, which we leave to the future work.
 
 ## Acknowledgements
 
-Thanks to colleagues at Google DeepMind for providing feedback and fruitful discussions. In particular, thanks to Sander Dieleman and Ben Poole. 
+Thanks to colleagues at Google DeepMind for fruitful discussions. In particular, thanks to Sander Dieleman and Ben Poole. 
 
 
 
