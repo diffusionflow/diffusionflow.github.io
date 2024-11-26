@@ -444,6 +444,9 @@ If you've read this far, hopefully we've convinced you that diffusion models and
 
 It would be interesting to investigate the importance of these two model specifications empirically in real applications.
 
+## Acknowledgements
+
+Thanks to colleagues at Google DeepMind for providing feedback and fruitful discussions. In particular, thanks to Sander Dieleman and Ben Poole. 
 
 
 
