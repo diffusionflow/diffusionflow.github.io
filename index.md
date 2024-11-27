@@ -325,9 +325,16 @@ For individual samples, these updates behave quite differently: the reversed DDI
 
 The fraction of the DDIM step to undo by renoising is a hyperparameter which we are free to choose (i.e. does not have to be exact half of the DDIM step), and which has been called the level of _churn_ by <d-cite key="karras2022elucidating"></d-cite>. Interestingly, the effect of adding churn to our sampler is to diminish the effect on our final sample of our model predictions made early during sampling, and to increase the weight on later predictions. This is shown in the figure below:
 
-<div class="l-page">
-  <iframe src="{{ 'assets/html/2025-04-28-distill-example/churn.html' | relative_url }}" frameborder='0' scrolling='no' height="600px" width="100%"></iframe>
+
+<div class="l-page" style="display: flex; justify-content: center; align-items: center; height: 100%;">
+  <iframe src="{{ 'assets/html/2025-04-28-distill-example/churn.html' | relative_url }}" 
+          frameborder="0" 
+          scrolling="no" 
+          height="600px" 
+          width="80%">
+  </iframe>
 </div>
+
 
 Here we ran different samplers for 100 sampling steps using a cosine noise schedule
 and $$\hat{\bf v}$$-prediction <d-cite key="salimansprogressive"></d-cite>. Ignoring nonlinear interactions, the final sample produced by the sampler can be written as a weighted sum of predictions $$\hat{\bf v}_t$$ made during sampling and a Gaussian noise $${\bf e}$$: $${\bf z}_0 = \sum_t h_t \hat{\bf v}_t +  \sum_t c_t {\bf e} $$. The weights $$h_t$$ of these predictions are shown on the y-axis for different diffusion times $$t$$ shown on the x-axis. DDIM results in an equal weighting of $$\hat{\bf v}$$-predictions for this setting, as shown in <d-cite key="salimansprogressive"></d-cite>,
