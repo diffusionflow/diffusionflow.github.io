@@ -2,8 +2,8 @@
 layout: distill
 title: "Diffusion Meets Flow Matching: Two Sides of the Same Coin"
 # permalink: /main/
-description: "Flow matching and diffusion models are two popular frameworks in generative modeling. Despite seeming similar, there is some confusion in the community about their exact connection. In this post, we aim to clear up this confusion and show that <i>diffusion models and Gaussian flow matching are the same</i>, although different model specifications can lead to different network outputs and sampling schedules. That's great news, it means that you can use the two frameworks interchangeably."
-date: 2025-11-26
+description: "Flow matching and diffusion models are two popular frameworks in generative modeling. Despite seeming similar, there is some confusion in the community about their exact connection. In this post, we aim to clear up this confusion and show that <i>diffusion models and Gaussian flow matching are the same</i>, although different model specifications can lead to different network outputs and sampling schedules. That's great news, it means you can use the two frameworks interchangeably."
+date: 2025-12-02
 future: true
 htmlwidgets: true
 hidden: false
@@ -288,7 +288,7 @@ We discuss the training noise schedule in the last, as it should be the least im
 
 ### Summary
 
-A few takeaways for diffusion models / flow matching training:
+A few takeaways for training of diffusion models / flow matching:
 
 <div style="padding: 10px 10px 10px 10px; border-left: 6px solid #FFD700; margin-bottom: 20px;">
   <p>1. <strong>Equivalence in weightings</strong>: Weighting function is important for training, which balances the importance of different frequency components of perceptual data. Flow matching weighting is the same as a commonly used diffusion training weighting. </p>
@@ -453,7 +453,7 @@ It would be interesting to investigate the importance of these two model specifi
 
 ## Acknowledgements
 
-Thanks to colleagues at Google DeepMind for fruitful discussions. In particular, thanks to Sander Dieleman and Ben Poole. 
+Thanks to our colleagues at Google DeepMind for fruitful discussions. In particular, thanks to Sander Dieleman and Ben Poole. 
 
 
 
