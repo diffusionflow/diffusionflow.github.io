@@ -171,7 +171,7 @@ Recall the flow matching update in Equation (4), look similar? If we set network
 Some other comments on the DDIM sampler:
 
 
-1. The DDIM sampler *analyically* integrates the reparametrized sampling ODE if the network output is a *constant* over time. Of course the network prediction is not constant, but it means the inaccuracy of DDIM sampler only comes from approximating the intractable integral of the network output (unlike the Euler sampler of the probability flow ODE <d-cite key="song2020score"></d-cite> which involves an additional linear term of $${\bf z}_t$$). The DDIM sampler can be considered an Euler integrator of the repamemetrized sampling ODE, which has the same update rule for different network outputs. However, if one uses a higher-order ODE solver, the network output can makes a difference, which means the $$\hat{\bf u}$$ output proposed by flow matching can make a difference from diffusion models.
+1. The DDIM sampler *analytically* integrates the reparametrized sampling ODE if the network output is a *constant* over time. Of course the network prediction is not constant, but it means the inaccuracy of DDIM sampler only comes from approximating the intractable integral of the network output (unlike the Euler sampler of the probability flow ODE <d-cite key="song2020score"></d-cite> which involves an additional linear term of $${\bf z}_t$$). The DDIM sampler can be considered an Euler integrator of the repamemetrized sampling ODE, which has the same update rule for different network outputs. However, if one uses a higher-order ODE solver, the network output can makes a difference, which means the $$\hat{\bf u}$$ output proposed by flow matching can make a difference from diffusion models.
 
 2. The DDIM sampler is *invariant* to a linear scaling applied to the noise schedule $$\alpha_t$$ and $$\sigma_t$$,
 as a scaling does not affect $$\tilde{\bf z}_t$$ and $$\eta_t$$. This is not true for other samplers e.g. Euler sampler of the probability flow ODE.
@@ -276,7 +276,7 @@ That is, the conditional flow matching objective in Equation (7) is the same as 
   <iframe src="{{ 'assets/html/2025-04-28-distill-example/weighting_functions.html' | relative_url }}" frameborder='0' scrolling='no' height="600px" width="100%"></iframe>
 </div>
 
-The flow matching weighting (also $${\bf v}$$-MSE + cosine schdule weighting) decreases exponentially as $$\lambda$$ increases. Empirically we find another interesting connection: The stable diffusion 3 weighting <d-cite key="esser2024scaling"></d-cite>, a reweighted version of flow matching, is very similar to the EDM weighting <d-cite key="karras2022elucidating"></d-cite> that is popular for diffusion models.
+The flow matching weighting (also $${\bf v}$$-MSE + cosine schdule weighting) decreases exponentially as $$\lambda$$ increases. Empirically we find another interesting connection: The Stable Diffusion 3 weighting <d-cite key="esser2024scaling"></d-cite>, a reweighted version of flow matching, is very similar to the EDM weighting <d-cite key="karras2022elucidating"></d-cite> that is popular for diffusion models.
 
 
 ### How do we choose the training noise schedule?
