@@ -68,7 +68,7 @@ Flow matching is gaining popularity recently, due to the simplicity of its formu
 
 As we will see, diffusion models and flow matching are *equivalent* (for the common special case that the source distribution used with flow matching corresponds to a Gaussian). So there is not a single answer to this question. In particular, we will show how to convert one formalism to another. Why does this equivalence matter? This allows you to mix and match techniques developed from the two frameworks. For example, after training a flow matching model, you can use either a stochastic or deterministic sampling method (in contrast to the common belief that flow matching is always deterministic). 
 
-We will focus on  the most commonly used flow matching formalism  <d-cite key="lipman2022flow"></d-cite>, which is closely related to <d-cite key="liu2022flow,albergo2023stochastic"></d-cite>. Our purpose is not to recommend one approach over another. Both frameworks are valuable, each rooted in distinct theoretical perspectives. It is even more encouraging that they lead to the same algorithm in practice. Our goal is to help practitioners feel confident using the two frameworks interchangeably, while understanding the true degrees of freedom one has when tuning the algorithm -- regardless of what it’s called.
+We will focus on the most commonly used flow matching formalism  <d-cite key="lipman2022flow"></d-cite>, which is closely related to rectified flow <d-cite key="liu2022flow"></d-cite> and stochastic interpolants <d-cite key="albergo2022building,albergo2023stochastic"></d-cite>. Our purpose is not to recommend one approach over another. Both frameworks are valuable, each rooted in distinct theoretical perspectives. It is even more encouraging that they lead to the same algorithm in practice. Our goal is to help practitioners feel confident using the two frameworks interchangeably, while understanding the true degrees of freedom one has when tuning the algorithm -- regardless of what it’s called.
 
 <!-- Our purpose is not to recommend one approach over another. Instead our goal is to explain similarities and differences between the methods, and to explain the degrees of freedom one has when tuning each algorithm. -->
 
@@ -398,7 +398,7 @@ $$
 
 Assuming the interpolation is $${\bf z}_t = \alpha_t {\bf x} + \sigma_t {\boldsymbol \epsilon}$$, then $${\bf u}_t = \dot{\alpha}_t {\bf x} + \dot{\sigma}_t {\boldsymbol \epsilon}$$.
 
-The generative process is simply reversing the ODE in time, and replacing $${\bf u}_t$$ by its conditional expectation with respect to $${\bf z}_t$$. This is a specific case of <em>stochastic interpolation</em><d-cite key="liu2022flow,albergo2023stochastic"></d-cite>, in which case it can be generalized to an SDE:
+The generative process is simply reversing the ODE in time, and replacing $${\bf u}_t$$ by its conditional expectation with respect to $${\bf z}_t$$. This is a specific case of <em>stochastic interpolants</em><d-cite key="albergo2022building,albergo2023stochastic"></d-cite>, in which case it can be generalized to an SDE:
 
 $$
 \begin{equation}
