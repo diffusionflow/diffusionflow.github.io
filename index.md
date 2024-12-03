@@ -70,8 +70,9 @@ As we will see, diffusion models and flow matching are *equivalent* (for the com
 
 We will focus on the most commonly used flow matching formalism with the optimal transport path <d-cite key="lipman2022flow"></d-cite>, which is closely related to rectified flow <d-cite key="liu2022flow"></d-cite> and stochastic interpolants <d-cite key="albergo2022building,albergo2023stochastic"></d-cite>. Our purpose is not to recommend one approach over another (both frameworks are valuable, each rooted in distinct theoretical perspectives, and it's actually even more encouraging that they lead to the same algorithm in practice), but rather to help practitioners understand and feel confident about using these frameworks interchangeably, while understanding the true degrees of freedom one has when tuning the algorithm---regardless of what it’s called.
 
-<!-- Our purpose is not to recommend one approach over another. Instead our goal is to explain similarities and differences between the methods, and explain the degrees of freedom that exist when tuning each algorithm. -->
+Check this [Google Colab](https://colab.research.google.com/drive/13lAveB3qwjkgyILWW-9qiOOSHG0U5_O6?usp=sharing) for code used to produce plots and animations in this post.
 
+<!-- Our purpose is not to recommend one approach over another. Instead our goal is to explain similarities and differences between the methods, and explain the degrees of freedom that exist when tuning each algorithm. -->
 
 
 ## Overview
