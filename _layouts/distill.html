@@ -162,8 +162,6 @@ ${academicLFI}, "${title}", ICLR Blogposts, 2025.
 
     </div>
 
-    <d-bibliography src="{{ page.bibliography | prepend: '/assets/bibliography/' | relative_url }}"></d-bibliography>
-
     <d-article id="bibtex-container" class="related highlight">
       For attribution in academic contexts, please cite this work as
       <pre id="bibtex-box">
@@ -171,6 +169,7 @@ ${academicLFI}, "${title}", ICLR Blogposts, 2025.
   </pre>
     </d-article>
 
+    <d-bibliography src="{{ page.bibliography | prepend: '/assets/bibliography/' | relative_url }}"></d-bibliography>
 
     <script src="https://utteranc.es/client.js"
         repo="iclr-blogposts/2025"

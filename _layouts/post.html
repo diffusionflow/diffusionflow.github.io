@@ -39,17 +39,16 @@ layout: default
     </p>
   </header>
 
-  <article class="post-content">
-    {{ content }}
-  </article>
-
-
   <div id="bibtex-container" class="related">
     For attribution in academic contexts, please cite this work as
     <pre id="bibtex-box">
 
   </pre>
   </div>
+
+  <article class="post-content">
+    {{ content }}
+  </article>
 
 
   {%- if site.disqus_shortname and page.comments -%}
