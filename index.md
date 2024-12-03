@@ -161,7 +161,7 @@ $$
 | $$\hat{\bf u}$$-flow matching vector field      |    $$\tilde{\bf z}_t = {\bf z}_t/(\alpha_t + \sigma_t)$$ and $$\eta_t = {\sigma_t}/(\alpha_t + \sigma_t)$$ | 
 
 
-Remember the flow matching update in Equation (4)? This should look similar. If we set the network output as $$\hat{\bf u}$$ in the last line and let $$\alpha_t = 1- t$$, $$\sigma_t = t$$, we have $$\tilde{\bf z}_t = {\bf z}_t$$ and $$\eta_t = t$$, which is the flow matching update! More formally, the flow matching update can be considered the Euler integration of the reparametrized sampling ODE (i.e., $$\mathrm{d}\tilde{\bf z}_t = \mathrm{[Network \; output]}\cdot\mathrm{d}\eta_t$$), and
+Remember the flow matching update in Equation (4)? This should look similar. If we set the network output as $$\hat{\bf u}$$ in the last line and let $$\alpha_t = 1- t$$, $$\sigma_t = t$$, we have $$\tilde{\bf z}_t = {\bf z}_t$$ and $$\eta_t = t$$, which is the flow matching update! More formally, the flow matching update is the discretized Euler integration of the sampling ODE (i.e., $$\mathrm{d}{\bf z}_t = \hat{\bf u} \mathrm{d}t$$), and with the flow matching noise schedule, 
 
 
 <div style="padding: 10px 10px 10px 10px; border-left: 6px solid #FFD700; margin-bottom: 20px;">
@@ -172,12 +172,12 @@ Remember the flow matching update in Equation (4)? This should look similar. If 
 Some other comments on the DDIM sampler:
 
 
-1. The DDIM sampler *analytically* integrates the reparametrized sampling ODE if the network output is a *constant* over time. Of course the network prediction is not constant, but it means the inaccuracy of DDIM sampler only comes from approximating the intractable integral of the network output (unlike the Euler sampler of the probability flow ODE <d-cite key="song2020score"></d-cite> which involves an additional linear term of $${\bf z}_t$$). The DDIM sampler can be considered an Euler integrator of the repamemetrized sampling ODE, which has the same update rule for different network outputs. However, if one uses a higher-order ODE solver, the network output can makes a difference, which means the $$\hat{\bf u}$$ output proposed by flow matching can make a difference from diffusion models.
+1. The DDIM sampler *analytically* integrates the reparametrized sampling ODE if the network output is a *constant* over time. Of course the network prediction is not constant, but it means the inaccuracy of DDIM sampler only comes from approximating the intractable integral of the network output (unlike the Euler sampler of the probability flow ODE <d-cite key="song2020score"></d-cite> which involves an additional linear term of $${\bf z}_t$$). The DDIM sampler can be considered a discretized Euler integration of the repamemetrized sampling ODE (i.e., $$\mathrm{d}\tilde{\bf z}_t = \mathrm{[Network \; output]}\cdot\mathrm{d}\eta_t$$), which corresponds to the same update rule for different network outputs. However, if one uses a higher-order ODE solver, the network output can make a difference, which means the $$\hat{\bf u}$$ output proposed by flow matching can make a difference from diffusion models.
 
 2. The DDIM sampler is *invariant* to a linear scaling applied to the noise schedule $$\alpha_t$$ and $$\sigma_t$$,
 as scaling does not affect $$\tilde{\bf z}_t$$ and $$\eta_t$$. This is not true for other samplers e.g. Euler sampler of the probability flow ODE.
 
-To validate Claim 2, we present the results obtained using several noise schedules, each of which follows a flow-matching schedule ($$\alpha_t = 1-t, \sigma_t = t$$) with different scaling factors. Feel free to change the slider. At the left end, the scaling factor is $$1$$, which is exactly the flow matching schedule, while at the right end, the scaling factor is $$1/[(1-t)^2 + t^2]$$, which corresponds to a variance-preserving schedule.
+To validate Claim 2, we present the results obtained using several noise schedules, each of which follows a flow-matching schedule ($$\alpha_t = 1-t, \sigma_t = t$$) with different scaling factors. Feel free to change the slider below the figure. At the left end, the scaling factor is $$1$$, which is exactly the flow matching schedule (FM), while at the right end, the scaling factor is $$1/[(1-t)^2 + t^2]$$, which corresponds to a variance-preserving schedule (VP).
 We see that DDIM (and flow matching sampler) always gives the same final data samples, regardless of the scaling of the schedule. The paths bend in different ways as we are showing $${\bf z}_t$$ (but not $$\tilde{\bf z}_t$$), which is scale-dependent along the path. For the Euler sampler of the probabilty flow ODE, the scaling makes a true difference: we see that both the paths and the final samples change.
 
 
