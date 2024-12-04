@@ -106,7 +106,7 @@ This is the DDIM sampler <d-cite key="song2020denoising"></d-cite>. The randomne
 
 ### Flow matching
 
-In Flow Matching, we view the forward process as a linear interpolation between the data $${\bf x}$$
+In flow matching, we view the forward process as a linear interpolation between the data $${\bf x}$$
 and a noise term $$\boldsymbol \epsilon$$:
 $$
 \begin{eqnarray}
@@ -161,7 +161,7 @@ $$
 | $$\hat{\bf u}$$-flow matching vector field      |    $$\tilde{\bf z}_t = {\bf z}_t/(\alpha_t + \sigma_t)$$ and $$\eta_t = {\sigma_t}/(\alpha_t + \sigma_t)$$ | 
 
 
-Remember the flow matching update in Equation (4)? This should look similar. If we set the network output as $$\hat{\bf u}$$ in the last line and let $$\alpha_t = 1- t$$, $$\sigma_t = t$$, we have $$\tilde{\bf z}_t = {\bf z}_t$$ and $$\eta_t = t$$, which is the flow matching update! More formally, the flow matching update is the discretized Euler integration of the sampling ODE (i.e., $$\mathrm{d}{\bf z}_t = \hat{\bf u} \mathrm{d}t$$), and with the flow matching noise schedule, 
+Remember the flow matching update in Equation (4)? This should look similar. If we set the network output as $$\hat{\bf u}$$ in the last line and let $$\alpha_t = 1- t$$, $$\sigma_t = t$$, we have $$\tilde{\bf z}_t = {\bf z}_t$$ and $$\eta_t = t$$, which is the flow matching update! More formally, the flow matching update is a Euler sampler of the sampling ODE (i.e., $$\mathrm{d}{\bf z}_t = \hat{\bf u} \mathrm{d}t$$), and with the flow matching noise schedule, 
 
 
 <div style="padding: 10px 10px 10px 10px; border-left: 6px solid #FFD700; margin-bottom: 20px;">
@@ -172,7 +172,7 @@ Remember the flow matching update in Equation (4)? This should look similar. If 
 Some other comments on the DDIM sampler:
 
 
-1. The DDIM sampler *analytically* integrates the reparametrized sampling ODE if the network output is a *constant* over time. Of course the network prediction is not constant, but it means the inaccuracy of DDIM sampler only comes from approximating the intractable integral of the network output (unlike the Euler sampler of the probability flow ODE <d-cite key="song2020score"></d-cite> which involves an additional linear term of $${\bf z}_t$$). The DDIM sampler can be considered a discretized Euler integration of the repamemetrized sampling ODE (i.e., $$\mathrm{d}\tilde{\bf z}_t = \mathrm{[Network \; output]}\cdot\mathrm{d}\eta_t$$), which corresponds to the same update rule for different network outputs. However, if one uses a higher-order ODE solver, the network output can make a difference, which means the $$\hat{\bf u}$$ output proposed by flow matching can make a difference from diffusion models.
+1. The DDIM sampler *analytically* integrates the reparametrized sampling ODE (i.e., $$\mathrm{d}\tilde{\bf z}_t = \mathrm{[Network \; output]}\cdot\mathrm{d}\eta_t$$) if the network output is a *constant* over time. Of course the network prediction is not constant, but it means the inaccuracy of DDIM sampler only comes from approximating the intractable integral of the network output (unlike the Euler sampler of the probability flow ODE <d-cite key="song2020score"></d-cite> which involves an additional linear term of $${\bf z}_t$$). The DDIM sampler can be considered a first-order Euler sampler of the repamemetrized sampling ODE, which has the same update rule for different network outputs. However, if one uses a higher-order ODE solver, the network output can make a difference, which means the $$\hat{\bf u}$$ output proposed by flow matching can make a difference from diffusion models.
 
 2. The DDIM sampler is *invariant* to a linear scaling applied to the noise schedule $$\alpha_t$$ and $$\sigma_t$$,
 as scaling does not affect $$\tilde{\bf z}_t$$ and $$\eta_t$$. This is not true for other samplers e.g. Euler sampler of the probability flow ODE.
