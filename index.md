@@ -250,13 +250,13 @@ used by diffusion models and the one used by flow matching. They can be derived 
 | Network Output  | Formulation   | MSE on Network Output  |
 | :------------- |:-------------:|-----:|
 | $$\hat{\boldsymbol \epsilon}$$-prediction      |$$\hat{\boldsymbol \epsilon}$$ | $$\lVert\hat{\boldsymbol{\epsilon}} - \boldsymbol{\epsilon}\rVert_2^2 $$|
-| $$\hat{\bf x}$$-prediction      | $$\hat{\bf x} = ({\bf x}_t - \sigma_t \hat{\boldsymbol \epsilon}) / \alpha_t $$      | $$ \lVert\hat{\bf x} - {\bf x}\rVert_2^2 = e^{-\lambda} \lVert\hat{\boldsymbol \epsilon} - {\boldsymbol \epsilon}\rVert_2^2 $$ |
+| $$\hat{\bf x}$$-prediction      | $$\hat{\bf x} = ({\bf z}_t - \sigma_t \hat{\boldsymbol \epsilon}) / \alpha_t $$      | $$ \lVert\hat{\bf x} - {\bf x}\rVert_2^2 = e^{-\lambda} \lVert\hat{\boldsymbol \epsilon} - {\boldsymbol \epsilon}\rVert_2^2 $$ |
 | $$\hat{\bf v}$$-prediction | $$\hat{\bf v} = \alpha_t \hat{\boldsymbol{\epsilon}} - \sigma_t \hat{\bf x} $$      |    $$ \lVert\hat{\bf v} - {\bf v}\rVert_2^2 = \alpha_t^2(e^{-\lambda} + 1)^2 \lVert\hat{\boldsymbol \epsilon} - {\boldsymbol \epsilon}\rVert_2^2 $$ |
 | $$\hat{\bf u}$$-flow matching vector field | $$\hat{\bf u} = \hat{\boldsymbol{\epsilon}} - \hat{\bf x} $$      |    $$ \lVert\hat{\bf u} - {\bf u}\rVert_2^2 = (e^{-\lambda / 2} + 1)^2 \lVert\hat{\boldsymbol \epsilon} - {\boldsymbol \epsilon}\rVert_2^2 $$ |
 
 In practice, however, the model output might make a difference. For example,
 
-* $$\hat{\boldsymbol \epsilon}$$-prediction can be problematic at high noise levels, because any error in $$\hat{\boldsymbol \epsilon}$$ will get amplified in $$\hat{\bf x} = ({\bf x}_t - \sigma_t \hat{\boldsymbol \epsilon}) / \alpha_t $$, as $$\alpha_t$$ is close to 0. It means that small changes create a large loss under some weightings. 
+* $$\hat{\boldsymbol \epsilon}$$-prediction can be problematic at high noise levels, because any error in $$\hat{\boldsymbol \epsilon}$$ will get amplified in $$\hat{\bf x} = ({\bf z}_t - \sigma_t \hat{\boldsymbol \epsilon}) / \alpha_t $$, as $$\alpha_t$$ is close to 0. It means that small changes create a large loss under some weightings. 
 
 * Following the similar reason, $$\hat{\bf x}$$-prediction is problematic at low noise levels, because $${\bf x}$$ as a target is not informative when added noise is small, and the error gets amplified in $$\hat{\boldsymbol \epsilon}$$.
 
